@@ -9,6 +9,8 @@ public class TranslateObject : MonoBehaviour
     public float timeZeroToMax;
     float m_acceleration;
     public float forwardVelocity;
+    Vector3 m_translate;
+    Quaternion m_rotate;
 
     // Start is called before the first frame update
     void Start()
@@ -22,8 +24,13 @@ public class TranslateObject : MonoBehaviour
     {
         forwardVelocity += m_acceleration * Time.deltaTime;
         forwardVelocity = Mathf.Min(forwardVelocity, maxSpeed);
-        transform.Translate(Vector3.forward * forwardVelocity);
-        //transform.SetPositionAndRotation(transform.position, transform.rotation);
+        //transform.Translate(Vector3.forward * forwardVelocity);
+        m_translate = transform.position + Vector3.forward * forwardVelocity * Time.deltaTime;
+        transform.Rotate(new Vector3 (1, 1, 0) * Time.deltaTime * 40);
+        transform.SetPositionAndRotation(m_translate, transform.rotation);
+        
         Debug.Log(transform.position);
+
+       
     }
 }
